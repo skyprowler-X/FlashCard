@@ -39,12 +39,12 @@ def change_word():
         messagebox.showinfo(
             title="YOU DID IT!",
             message="There's no more words to practices with. Take a rest 😁")
-        words_data = pd.read_csv(r"Day - 31\Day 31 - Project\Practice_vocabulary.csv")
+        words_data = pd.read_csv("Practice_vocabulary.csv")
 
         if words_data.empty is not True and "practice" in words_list[0].values():
             empty_dt = pd.DataFrame()
             empty_dt.to_csv(
-                r"Day - 31\Day 31 - Project\Practice_vocabulary.csv", index=False
+                "Practice_vocabulary.csv", index=False
             )
 
 
@@ -61,20 +61,20 @@ def remove_words_from_list(button):
                 print(practice_data)
                 try:
                     data = pd.read_csv(
-                        r"Day - 31\Day 31 - Project\Practice_vocabulary.csv"
+                        "Practice_vocabulary.csv"
                     )
 
                 except Exception as e:
                     print(e)
                     practice_data.to_csv(
-                        r"Day - 31\Day 31 - Project\Practice_vocabulary.csv",
+                        "Practice_vocabulary.csv",
                         index=False,
                     )
 
                 else:
                     update_data = pd.concat([practice_data, data], ignore_index=True)
                     update_data.to_csv(
-                        r"Day - 31\Day 31 - Project\Practice_vocabulary.csv",
+                        "Practice_vocabulary.csv",
                         index=False,
                     )
                 break
@@ -84,13 +84,13 @@ def remove_words_from_list(button):
 
 
 try:
-    words_data = pd.read_csv(r"Day - 31\Day 31 - Project\Practice_vocabulary.csv")
+    words_data = pd.read_csv("Practice_vocabulary.csv")
     if words_data.empty:
         raise Exception()
 
 except Exception as e:
     print(e)
-    words_data = pd.read_csv(r"Day - 31\Day 31 - Project\French_vocabulary.csv")
+    words_data = pd.read_csv("French_vocabulary.csv")
     words_with_columns = words_data.to_dict(orient="records")
     words_list = [{word["French"]: word["English"]} for word in words_with_columns]
     words_list.insert(0, {"source": "total_vocabulary"})
@@ -109,8 +109,8 @@ root.title("Flash Card App")
 root.config(bg=BG_COLOR, padx=50, pady=50)
 # root.bind("<Button-1>", know_coords)
 
-img_front_card = PhotoImage(file=r"Day - 31\Day 31 - Project\card_front_resized.png")
-img_back_card = PhotoImage(file=r"Day - 31\Day 31 - Project\card_back_resized.png")
+img_front_card = PhotoImage(file="card_front_resized.png")
+img_back_card = PhotoImage(file="card_back_resized.png")
 canva = Canvas(width=700, height=400)
 
 canva_img = canva.create_image(360, 200, image=img_front_card)
@@ -123,7 +123,7 @@ canva.grid(row=0, column=0, columnspan=2)
 canva.config(bg=BG_COLOR, highlightbackground=BG_COLOR)
 after_time = canva.after(3000, change_canva_and_word)
 
-img_failed_button = PhotoImage(file=r"Day - 31\Day 31 - Project\wrong.png")
+img_failed_button = PhotoImage(file="wrong.png")
 failed_button = Button(
     image=img_failed_button,
     command=lambda: (remove_words_from_list("fail"), change_word()),
@@ -134,7 +134,7 @@ failed_button.config(
     highlightthickness=0,
 )
 
-img_check_button = PhotoImage(file=r"Day - 31\Day 31 - Project\right.png")
+img_check_button = PhotoImage(file="right.png")
 
 check_button = Button(
     image=img_check_button,
